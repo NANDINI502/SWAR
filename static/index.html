@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Authix | Real-Time AI Detection</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Phosphor Icons for elegant UI icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <i class="ph ph-shield-check shield-icon"></i>
+                <h1 class="logo-text">Authix</h1>
+            </div>
+
+            <ul class="nav-links">
+                <li class="active" data-tab="live">
+                    <i class="ph ph-broadcast"></i>
+                    <span>Live Detection</span>
+                </li>
+                <li data-tab="screen">
+                    <i class="ph ph-monitor"></i>
+                    <span>Screen Detection</span>
+                </li>
+                <li data-tab="upload">
+                    <i class="ph ph-upload-simple"></i>
+                    <span>File Analysis</span>
+                </li>
+                <li data-tab="about">
+                    <i class="ph ph-info"></i>
+                    <span>System Status</span>
+                </li>
+            </ul>
+
+            <div class="server-status">
+                <div class="status-indicator online"></div>
+                <span>Engine Online</span>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+
+            <!-- Live Detection Tab -->
+            <section id="live" class="tab-content active">
+                <header class="section-header">
+                    <h2>Real-Time Monitoring</h2>
+                    <p>Detect deepfake video and synthesized voices instantly using advanced AI models.</p>
+                </header>
+
+                <div class="dashboard-grid">
+                    <!-- Video Feed Card -->
+                    <div class="glass-card video-card">
+                        <div class="card-header">
+                            <i class="ph ph-video-camera"></i>
+                            <h3>Visual Analysis</h3>
+                            <button id="start-video-btn" class="power-btn"><i class="ph ph-power"></i></button>
+                        </div>
+                        <div class="stream-container">
+                            <video id="webcam-video" autoplay playsinline muted class="hidden"></video>
+                            <canvas id="webcam-canvas" class="hidden"></canvas>
+                            <img id="processed-video" src="" alt="Live Analysis stream" class="hidden">
+                            <div id="video-placeholder" class="placeholder-overlay">
+                                <i class="ph ph-camera-slash"></i>
+                                <span>Camera stream inactive</span>
+                            </div>
+                        </div>
+                        <div class="metrics-panel">
+                            <div class="metric">
+                                <span class="label">Status</span>
+                                <span id="video-label" class="value neutral">STANDBY</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Confidence</span>
+                                <span id="video-confidence" class="value">0%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">FPS</span>
+                                <span id="video-fps" class="value">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Feed Card -->
+                    <div class="glass-card audio-card">
+                        <div class="card-header">
+                            <i class="ph ph-microphone-stage"></i>
+                            <h3>Voice Analysis</h3>
+                            <button id="start-audio-btn" class="power-btn"><i class="ph ph-power"></i></button>
+                        </div>
+                        <div class="stream-container audio-visualization">
+                            <canvas id="audio-visualizer-canvas"></canvas>
+                            <div id="audio-placeholder" class="placeholder-overlay">
+                                <i class="ph ph-microphone-slash"></i>
+                                <span>Microphone inactive</span>
+                            </div>
+                        </div>
+                        <div class="metrics-panel">
+                            <div class="metric">
+                                <span class="label">Status</span>
+                                <span id="audio-label" class="value neutral">STANDBY</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Fake Prob.</span>
+                                <span id="audio-prob" class="value">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screen Detection Tab -->
+            <section id="screen" class="tab-content">
+                <header class="section-header">
+                    <h2>Screen Monitor</h2>
+                    <p>Share your screen to detect deepfakes in video calls, streams, and media playback.</p>
+                </header>
+
+                <div class="dashboard-grid">
+                    <div class="glass-card full-width">
+                        <div class="card-header">
+                            <i class="ph ph-monitor"></i>
+                            <h3>Screen Capture Analysis</h3>
+                            <button id="start-screen-btn" class="power-btn"><i class="ph ph-power"></i></button>
+                        </div>
+                        <div class="stream-container screen-stream">
+                            <video id="screen-video" autoplay playsinline muted class="hidden"></video>
+                            <canvas id="screen-canvas" class="hidden"></canvas>
+                            <img id="processed-screen" src="" alt="Screen Analysis" class="hidden">
+                            <div id="screen-placeholder" class="placeholder-overlay">
+                                <i class="ph ph-monitor-arrow-up"></i>
+                                <span>Click the power button and select a screen or window to share</span>
+                            </div>
+                        </div>
+                        <div class="metrics-panel">
+                            <div class="metric">
+                                <span class="label">Status</span>
+                                <span id="screen-label" class="value neutral">STANDBY</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Confidence</span>
+                                <span id="screen-confidence" class="value">0%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">FPS</span>
+                                <span id="screen-fps" class="value">0</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Fake Prob.</span>
+                                <span id="screen-prob" class="value">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Analysis Tab -->
+            <section id="upload" class="tab-content">
+                <header class="section-header">
+                    <h2>Deep Analysis Engine</h2>
+                    <p>Upload suspect files for comprehensive forensic scanning.</p>
+                </header>
+
+                <div class="dashboard-grid">
+                    <!-- Video Upload -->
+                    <div class="glass-card upload-card">
+                        <div class="card-header">
+                            <i class="ph ph-film-strip"></i>
+                            <h3>Analyze Video File</h3>
+                        </div>
+                        <div class="upload-zone" id="video-drop-zone">
+                            <i class="ph ph-upload"></i>
+                            <p>Drag & drop or <span class="browse-link">browse</span></p>
+                            <input type="file" id="video-upload-input" accept="video/mp4,video/avi,video/mov"
+                                class="hidden-input">
+                            <span class="file-limits">Supports MP4, AVI, MOV</span>
+                        </div>
+                        <div id="video-upload-results" class="results-box hidden">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Audio Upload -->
+                    <div class="glass-card upload-card">
+                        <div class="card-header">
+                            <i class="ph ph-waveform"></i>
+                            <h3>Analyze Audio File</h3>
+                        </div>
+                        <div class="upload-zone" id="audio-drop-zone">
+                            <i class="ph ph-upload"></i>
+                            <p>Drag & drop or <span class="browse-link">browse</span></p>
+                            <input type="file" id="audio-upload-input" accept="audio/wav,audio/mp3,audio/ogg"
+                                class="hidden-input">
+                            <span class="file-limits">Supports WAV, MP3, OGG</span>
+                        </div>
+                        <div id="audio-upload-results" class="results-box hidden">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About / System Status Tab -->
+            <section id="about" class="tab-content">
+                <header class="section-header">
+                    <h2>System Diagnostics</h2>
+                    <p>Model architecture and environment overview.</p>
+                </header>
+
+                <div class="glass-card full-width">
+                    <div class="card-header">
+                        <i class="ph ph-cpu"></i>
+                        <h3>Neural Engine Specifications</h3>
+                    </div>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <h4>Video Model</h4>
+                            <p>ViT (Vision Transformer) fine-tuned for facial artifact detection, run on MTCNN spatial
+                                crops.</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>Audio Model</h4>
+                            <p>Wav2Vec2 HuggingFace Sequence Classification identifying synthetic voice artifacts.</p>
+                        </div>
+                        <div class="spec-item">
+                            <h4>Architecture</h4>
+                            <p>High-frequency asynchronous WebSockets over FastAPI, eliminating Gradio UI overhead.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+# Core ML frameworks
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Trained model loading (Wav2Vec2 / ViT checkpoints in weights/)
+transformers>=4.40.0
+
+# Face detection
+facenet-pytorch>=2.5.3
+
+# Audio processing
+librosa>=0.10.0
+sounddevice>=0.4.6
+soundfile>=0.12.0
+
+# Video / Image processing
+opencv-python>=4.8.0
+Pillow>=10.0.0
+numpy>=1.24.0
+mss>=9.0.1
+scikit-image>=0.22.0     # LBP texture cue in models/forensic_features.py (roadmap item 2)
+
+# ONNX optimization
+onnx>=1.14.0
+onnxruntime-gpu>=1.16.0
+
+# UI
+gradio>=4.0.0
+customtkinter>=5.2.0
+winotify>=1.1.0
+
+# server.py (FastAPI + WebSocket app)
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9   # required by FastAPI's UploadFile/File() form parsing
+websockets>=12.0          # used by test_ws.py to smoke-test the /ws endpoints
+
+# Utilities
+scipy>=1.11.0

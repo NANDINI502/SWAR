@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# Runtime-generated
+uploads/*
+!uploads/.gitkeep
+
+# Large trained model checkpoints — over GitHub's 100MB per-file limit
+# (audio ~360MB, video ~330MB). Config/preprocessor JSON files stay tracked;
+# re-download/re-train the binaries via training/train_audio_kaggle.py /
+# training/train_kaggle.py — see CLAUDE_CODE_HANDOFF.md §2 and §4.
+weights/audio_model/pytorch_model.bin
+weights/video_model/model.safetensors
